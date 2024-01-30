@@ -7,31 +7,15 @@ import torch.nn as nn
 from custom_policy import CustomActorCriticPolicy,CustomActorCriticPolicySGD
 from custom_network import SimpleCustomNetwork, DeepCustomNetwork, DeepCustomNetworkWithAdaptiveAvgPool1d,DeepCustomNetworkTanh,DeepCustomNetworkWithAttention,SimpleCustomNetworkTanh, EnhancedCustomNetwork,SimpleDeepFusionCustomNetwork,DeepCustomNetworkLV,DeepCustomNetworkRR,AblationNetwork
 def linear_schedule(initial_value: float) -> Callable[[float], float]:
-    """
-    Linear learning rate schedule.
-    :param initial_value: (float) Initial learning rate.
-    :return: (Callable[[float], float]) schedule that computes current learning rate depending on remaining progress
-    """
+    
     def func(progress_remaining: float) -> float:
-        """
-        Progress will decrease from 1 (beginning) to 0.
-        :param progress_remaining: (float) Remaining progress
-        :return: (float) current learning rate
-        """
         return progress_remaining * initial_value
-
     return func
 
 def exponential_schedule(initial_value, decay_steps, decay_rate, min_lr):
-    """
-    Creates a function that returns the learning rate for the current step given the initial value,
-    decay steps, decay rate, and minimum learning rate.
-    """
     def func(current_step):
-        """Calculates the learning rate."""
         current_lr = initial_value * (decay_rate ** (current_step / decay_steps))
         return max(current_lr, min_lr)
-    
     return func
 
 
@@ -40,7 +24,6 @@ class CustomRewardLoggingCallback(BaseCallback):
         super(CustomRewardLoggingCallback, self).__init__(verbose)
         self.reward_keys = ['Reward1', 'Reward2', 'Reward3', 'Reward4', 'Reward5', 'Reward6']
         self.reward_weights= self.weights()
-        # Initialize the sums to zero
         self.reward_sums = {key: 0 for key in self.reward_keys}
         self.episode_rewards = {key: [] for key in self.reward_keys} # Store rewards per episode
         self.num_episodes = 0  # Counter for number of episodes
@@ -49,13 +32,10 @@ class CustomRewardLoggingCallback(BaseCallback):
     def _on_step(self) -> bool:
         info = self.locals["infos"][0]
         # Check if episode is done and a reward is provided in 'info'
-        #print(info["Reward6"])
-        #print("weights is ",self.reward_weights["Reward6"] )
         if 'done' in info and info['done'] == False:
             self.num_steps += 1 
             for key in self.reward_keys:
                 self.reward_sums[key] += info[key]*self.reward_weights[key]  
-            
         if 'done' in info and info['done']:
             self.num_episodes += 1 
             self.num_steps += 1 
@@ -72,7 +52,6 @@ class CustomRewardLoggingCallback(BaseCallback):
                     self.episode_rewards[key] = []
                     self.reward_sums[key] = 0
                 self.logger.record("rollout/View-Blocking", per_attacks['View-Blocking'])
-
                 for key in ['Reward4', 'Reward5']:
                     average_reward = np.mean(self.episode_rewards[key]) 
                     per_attacks["Distraction"]+= average_reward
