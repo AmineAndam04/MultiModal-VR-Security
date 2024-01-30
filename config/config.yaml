@@ -1,0 +1,37 @@
+environment:
+     path: '/Users/amineandam/Desktop/VR-Applications/VRapp.app' 
+     alphaThreshold : 0.2
+     cf0 : 0.5 
+     bf0 : 0.5 
+     du : 2.5
+     alpha1: 0.007
+     alpha2: 0.005
+     alpha3: 0.12
+     alpha4: 0.0013
+     alpha5: 0.0013
+     alpha6: 0.25
+     max_episode_length: 60
+     seed: 42
+
+network :
+     architecture: "AblationNetwork"
+model:
+     save_freq: 1024
+     save_path: "/Users/amineandam/OutputVRSec-Implementation/models/Modular"
+     name_prefix: "Ablation"
+optimizer:
+     optimizer: "Adam"
+     learning_rate : 0.0003
+     schedular: "linear"
+ppo:
+     n_steps: 1024
+     batch_size: 256
+     n_epochs: 5
+     tensorboard_log: "/Users/amineandam/OutputVRSec-Implementation/logs"
+     device: "auto"
+     verbose: 1
+     tb_log_name: "Modular"
+     timesteps: 500000
+     clip_range: 0.2
+     ent_coef: 0.01
+     seed: 42
