@@ -52,8 +52,6 @@ class CustomUnityEnvironment(gym.Env):
         visual_observation = decision_steps[0].obs[0]
         return { "numerical_observation": numerical_observation,"visual_observation": visual_observation}
     
-    
-    
     def step(self, action):
         # Send the action to the Unity environment
         actions_to_send = torch.zeros((1,124), dtype=torch.float32)
@@ -93,6 +91,7 @@ def loadCustomEnv(env_path, hyperparameters = [],max_episode_length = 60,seed = 
     hyperparametersChannel.send_hyperparameters(hyperparameters)
     stats_side_channel = StatsSideChannel()
     side_channels = [hyperparametersChannel,stats_side_channel]
+    # If you run two instances of training, you have to change the worker_id for the second run (worker_id = 0,1,2 ...)
     env = UnityEnvironment(file_name=env_path,side_channels=side_channels,seed = seed, no_graphics=True,worker_id = 8)
     env.reset()
     bhvr_name = behavior_name(env)

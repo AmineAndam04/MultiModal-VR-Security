@@ -64,7 +64,7 @@ class SimpleCustomNetwork(nn.Module):
             nn.Conv1d(in_channels=3, out_channels=1, kernel_size=3),
             nn.Flatten(),
             nn.AdaptiveMaxPool1d(1))
-        #self.initialize_parameters()
+        #self.initialize_parameters() we initialize in custom_policy.py
     def initialize_parameters(self):
         for name, module in self.named_children():
             if isinstance(module, (nn.Conv1d, nn.Conv2d, nn.ConvTranspose1d)):

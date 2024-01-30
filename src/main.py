@@ -24,18 +24,7 @@ def main(config):
         seed_ppo= config["ppo"]["seed"], save_path = config["model"]["save_path"])
     print("Done training")
 
-"""def main(config):
-    env_path,env_hyperparameters,max_episode_length,seed_env = env_config(config=config)
-    policy = policy_config(config=config)
-    learning_rate = lr_config(config)
-    custom_reward_logging = CustomTensorBoard_config(config=config)
-    
-    train(policy, env_path,env_hyperparameters,max_episode_length,seed_env=seed_env,
-        learning_rate = learning_rate,clip_range=config["ppo"]["clip_range"],ent_coef=config["ppo"]["ent_coef"],n_steps= config["ppo"]["n_steps"],batch_size =config["ppo"]["batch_size"] ,
-        n_epochs=config["ppo"]["n_epochs"],gamma=config["ppo"]["gamma"] ,custom_reward_logging = custom_reward_logging, tensorboard_log=config["ppo"]["tensorboard_log"],device=config["ppo"]["device"],
-        verbose = config["ppo"]["verbose"],tb_log_name= config["ppo"]["tb_log_name"], timesteps= config["ppo"]["timesteps"],
-        seed_ppo= config["ppo"]["seed"], save_path = config["model"]["save_path"])
-    print("Done training")"""
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
