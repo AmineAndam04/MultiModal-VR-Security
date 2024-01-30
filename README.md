@@ -10,8 +10,6 @@
 ### Installation
 
 ```bash
-git clone https://github.com/LiheYoung/Depth-Anything
-cd Depth-Anything
 pip install -r requirements.txt
 ```
 
