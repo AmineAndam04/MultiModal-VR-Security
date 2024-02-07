@@ -2,13 +2,11 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.callbacks import CheckpointCallback
 from typing import Callable
 import numpy as np
-import torch
-import torch.nn as nn
 from custom_policy import CustomActorCriticPolicy,CustomActorCriticPolicySGD
 from custom_network import SimpleCustomNetwork, DeepCustomNetwork, DeepCustomNetworkWithAdaptiveAvgPool1d,DeepCustomNetworkTanh,DeepCustomNetworkWithAttention,SimpleCustomNetworkTanh, EnhancedCustomNetwork,SimpleDeepFusionCustomNetwork,DeepCustomNetworkLV,DeepCustomNetworkRR,AblationNetwork
-def linear_schedule(initial_value: float) -> Callable[[float], float]:
+def linear_schedule(initial_value) :
     
-    def func(progress_remaining: float) -> float:
+    def func(progress_remaining):
         return progress_remaining * initial_value
     return func
 
@@ -25,13 +23,12 @@ class CustomRewardLoggingCallback(BaseCallback):
         self.reward_keys = ['Reward1', 'Reward2', 'Reward3', 'Reward4', 'Reward5', 'Reward6']
         self.reward_weights= self.weights()
         self.reward_sums = {key: 0 for key in self.reward_keys}
-        self.episode_rewards = {key: [] for key in self.reward_keys} # Store rewards per episode
-        self.num_episodes = 0  # Counter for number of episodes
+        self.episode_rewards = {key: [] for key in self.reward_keys} 
+        self.num_episodes = 0  
         self.num_steps = 0
 
     def _on_step(self) -> bool:
         info = self.locals["infos"][0]
-        # Check if episode is done and a reward is provided in 'info'
         if 'done' in info and info['done'] == False:
             self.num_steps += 1 
             for key in self.reward_keys:

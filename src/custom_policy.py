@@ -42,8 +42,6 @@ class CustomActorCriticPolicy(ActorCriticPolicy):
         self._build(lr_schedule)
         self.iter = 0
         
-    
-
     def _build_mlp_extractor(self) :
         """
          Create the policy and value networks.
@@ -135,13 +133,12 @@ class CustomActorCriticPolicy(ActorCriticPolicy):
         num = self._remove_pads(num)
         #Process visual observation
         if isinstance(vis, torch.Tensor) == False:
-            vis = torch.tensor(vis).clone().detach().requires_grad_(True)  # Convert to PyTorch tensor
-
-        vis = vis.permute(0, 3, 1, 2)  # Change the order of dimensions
+            vis = torch.tensor(vis).clone().detach().requires_grad_(True)  
+        vis = vis.permute(0, 3, 1, 2)  
         #vis = vis.unsqueeze(0)
         #Process numerical observaton
         if isinstance(num, torch.Tensor) == False:
-            num = torch.tensor(num).clone().detach().requires_grad_(True)  # Convert to PyTorch tensor
+            num = torch.tensor(num).clone().detach().requires_grad_(True)  
         num = num.unsqueeze(0)
         #num = num.unsqueeze(0)
         return vis, num
@@ -398,15 +395,13 @@ class CustomActorCriticPolicySGD(ActorCriticPolicy):
         vis = obs["visual_observation"]
         num = obs["numerical_observation"]
         num = self._remove_pads(num)
-        #Process visual observation
         if isinstance(vis, torch.Tensor) == False:
-            vis = torch.tensor(vis).clone().detach().requires_grad_(True)  # Convert to PyTorch tensor
-
-        vis = vis.permute(0, 3, 1, 2)  # Change the order of dimensions
+            vis = torch.tensor(vis).clone().detach().requires_grad_(True)  
+        vis = vis.permute(0, 3, 1, 2)  
         #vis = vis.unsqueeze(0)
         #Process numerical observaton
         if isinstance(num, torch.Tensor) == False:
-            num = torch.tensor(num).clone().detach().requires_grad_(True)  # Convert to PyTorch tensor
+            num = torch.tensor(num).clone().detach().requires_grad_(True)  
         num = num.unsqueeze(0)
         #num = num.unsqueeze(0)
         return vis, num
