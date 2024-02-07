@@ -1,39 +1,40 @@
 environment:
-     path: ''  
+     path: '/home/amine.andam/VR_Output_Security/env/VRappLinux.x86_64'
      alphaThreshold : 0.2
      cf0 : 0.5 
      bf0 : 0.5 
      du : 2.5
-     alpha1: 0.007
-     alpha2: 0.005
-     alpha3: 0.12
-     alpha4: 0.0013
-     alpha5: 0.0013
-     alpha6: 0.25
+     alpha1: 0.00117
+     alpha2: 0.00083
+     alpha3: 0.02
+     alpha4: 0.000217
+     alpha5: 0.000217
+     alpha6: 0.0667
      max_episode_length: 60
      seed: 42
 
 network :
-     architecture: "AblationNetwork"
+     architecture: "DeepCustomNetworkRR"
 model:
      save_freq: 1024
-     save_path: ""
-     name_prefix: "Ablation"
+     save_path: "/mnt/beegfs/amine.andam/Nstep1024-batch64-lr1e4-Gama90-Clip01-Seed42"
+     name_prefix: "Nstep1024-batch64-lr1e4-Gama90-Clip01-Seed42"
 optimizer:
      optimizer: "Adam"
-     learning_rate : 0.0003
+     learning_rate :  0.0001
      schedular: "linear"
 ppo:
      n_steps: 1024
-     batch_size: 256
+     batch_size: 64
      n_epochs: 5
-     tensorboard_log: "/logs"
+     gamma: 0.9
+     tensorboard_log: "/home/amine.andam/VR_Output_Security/logs/logs"
      device: "auto"
-     verbose: 1
-     tb_log_name: ""
-     timesteps: 500000
-     clip_range: 0.2
-     ent_coef: 0.01
-     target_kl: 'None'
+     verbose: 0
+     tb_log_name: "RRDeepCustomNetwork_1024-nstep_64-batch_5-epochs_lr1e4-Gama90-Clip01-Grad04-Seed42"
+     timesteps: 1000000
+     clip_range: 0.1
+     ent_coef: 0.001
+     target_kl: "None"
      max_grad_norm: 0.5
-     seed: 42
+     seed: 6
