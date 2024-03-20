@@ -7,11 +7,25 @@
 
 ## Usage 
 
-### Installation
 
+
+You can run the code on Google Colab using this [notebook](https://github.com/AmineAndam04/MultiModal-VR-Security/blob/main/Notebook/Test_on_Colab.ipynb)
+
+You can run the code locally by following these inscructions
+
+ - Clone the repository
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/AmineAndam04/MultiModal-VR-Security.git
+cd MultiModal-VR-Security
 ```
+  - Create a conda environment and install the requirements
+```bash
+conda create --name vrpaper  python=3.8
+conda activate vrpaper
+pip install -r requirements.txt  
+```
+  - 
+
 
 ### Running
 
